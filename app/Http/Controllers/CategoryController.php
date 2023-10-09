@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     protected $category;
     public function __construct(Category $category)
     {
@@ -22,18 +19,6 @@ class CategoryController extends Controller
         $categories = $this->category->latest('id')->paginate(5);
         return response()->json($categories);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCategoryRequest $request)
     {
         try {
@@ -56,26 +41,14 @@ class CategoryController extends Controller
             ], 500);
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Category $category)
     {
         return response()->json($category);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $category)
     {
         return response()->json($category);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreCategoryRequest $request, Category $category)
     {
         try {
@@ -84,7 +57,7 @@ class CategoryController extends Controller
                 Storage::delete('public/images/' . $category->image);
                 $data['image'] = $request->file('image')->getClientOriginalName();
                 $request->file('image')->storeAs('public/images', $data['image']);
-            }else {
+            } else {
                 // Nếu không có ảnh mới, sử dụng lại giá trị hiện tại của trường image trong cơ sở dữ liệu
                 $data['image'] = $category->image;
             }
@@ -99,11 +72,6 @@ class CategoryController extends Controller
             ], 500);
         }
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
         Storage::delete('public/images/' . $category->image);

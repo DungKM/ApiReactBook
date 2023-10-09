@@ -21,7 +21,7 @@ class StoreBrandRequest extends FormRequest
      */
     public function rules(): array
     {
-        if(request()->isMethod('post')) {
+        if (request()->isMethod('post')) {
             return [
                 'name' => 'required|string|max:258',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

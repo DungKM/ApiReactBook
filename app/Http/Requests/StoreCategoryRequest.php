@@ -35,20 +35,5 @@ class StoreCategoryRequest extends FormRequest
             ];
         }
     }
-  
-    public function messages()
-    {
-        if(request()->isMethod('post')) {
-            return [
-                'name.required' => 'Name is required!',
-                'image.required' => 'Image is required!',
-                'description.required' => 'Descritpion is required!'
-            ];
-        } else {
-            return [
-                'name.required' => 'Name is required!',
-                'description.required' => 'Descritpion is required!'
-            ];   
-        }
-    }
+
 }

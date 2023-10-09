@@ -25,11 +25,15 @@ class UserController extends Controller
         $users = $this->user->latest('id')->paginate(3);
         return response()->json($users);
     }
+
+    
     public function create()
     {
         $roles = $this->role->all()->groupBy('group');
         return response()->json($roles);
     }
+
+    
     public function show($id)
     {
         $user = $this->user->findOrFail($id)->load('roles');
@@ -49,9 +53,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $dataUpdate = $request->except('password');

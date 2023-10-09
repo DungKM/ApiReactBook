@@ -26,11 +26,11 @@ class RoleAdminDatabase extends Seeder
         foreach ($roles as $role) {
             Role::updateOrCreate($role);
         }
-        $superAdmin = User::whereEmail('admin@gmail.com')->first();
-        if (!$superAdmin) {
-            $superAdmin = User::factory()->create(['email' => 'admin@gmail.com']);
-        }
-        $superAdmin->assignRole('super-admin');
+        // $superAdmin = User::whereEmail('admin@gmail.com')->first();
+        // if (!$superAdmin) {
+        //     $superAdmin = User::factory()->create(['email' => 'admin@gmail.com']);
+        // }
+        // $superAdmin->assignRole('super-admin');
 
         $permissions = [
             ['name' => 'create-user', 'display_name' => 'Create user', 'group' => 'user'],
@@ -47,7 +47,12 @@ class RoleAdminDatabase extends Seeder
             ['name' => 'update-category', 'display_name' => 'Update category', 'group' => 'category'],
             ['name' => 'show-category', 'display_name' => 'Show category', 'group' => 'category'],
             ['name' => 'delete-category', 'display_name' => 'Delete category', 'group' => 'category'],
-
+            
+            ['name' => 'create-brand', 'display_name' => 'Create brand', 'group' => 'brand'],
+            ['name' => 'update-brand', 'display_name' => 'Update brand', 'group' => 'brand'],
+            ['name' => 'show-brand', 'display_name' => 'Show brand', 'group' => 'brand'],
+            ['name' => 'delete-brand', 'display_name' => 'Delete brand', 'group' => 'brand'],
+            
             ['name' => 'create-product', 'display_name' => 'Create product', 'group' => 'product'],
             ['name' => 'update-product', 'display_name' => 'Update product', 'group' => 'product'],
             ['name' => 'show-product', 'display_name' => 'Show product', 'group' => 'product'],

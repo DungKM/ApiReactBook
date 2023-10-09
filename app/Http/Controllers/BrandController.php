@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     protected $brand;
     public function __construct(Brand $brand)
     {
@@ -22,18 +19,6 @@ class BrandController extends Controller
         $brands = $this->brand->latest('id')->paginate(5);
         return response()->json($brands);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreBrandRequest $request)
     {
         try {
@@ -57,25 +42,18 @@ class BrandController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Brand $brand)
     {
         return response()->json($brand);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Brand $brand)
     {
         return response()->json($brand);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreBrandRequest $request, Brand $brand)
     {
         try {
@@ -100,9 +78,6 @@ class BrandController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Brand $brand)
     {
         Storage::delete('public/images/' . $brand->image);

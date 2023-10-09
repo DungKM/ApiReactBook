@@ -10,14 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-  /**
-     * Display a listing of the resource.
-     */
     protected $category;
     protected $brand;
     protected $product;
-    public function __construct(Category $category,Brand $brand, Product $product)
-    
+    public function __construct(Category $category, Brand $brand, Product $product)
+
     {
         $this->category = $category;
         $this->product = $product;
@@ -28,25 +25,16 @@ class ProductController extends Controller
         $products = $this->product->with('category')->with('brand')->latest('id')->paginate(5);
         return response()->json($products);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    
     public function create()
     {
         $category = $this->category->get();
         $brand = $this->brand->get();
-        
+
         return response()->json([
-           'categories' => $category,
-           'brands' => $brand,
+            'categories' => $category,
+            'brands' => $brand,
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreProductRequest $request)
     {
         try {
@@ -69,25 +57,14 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
         return response()->json($product);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
         return response()->json($product);
     }
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreProductRequest $request, Product $product)
     {
         try {
@@ -96,8 +73,7 @@ class ProductController extends Controller
                 Storage::delete('public/images/' . $product->image);
                 $data['image'] = $request->file('image')->getClientOriginalName();
                 $request->file('image')->storeAs('public/images', $data['image']);
-            }else {
-                // Nếu không có ảnh mới, sử dụng lại giá trị hiện tại của trường image trong cơ sở dữ liệu
+            } else {
                 $data['image'] = $product->image;
             }
             $product->update($data);
@@ -112,10 +88,6 @@ class ProductController extends Controller
         }
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         Storage::delete('public/images/' . $product->image);
