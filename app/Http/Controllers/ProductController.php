@@ -22,7 +22,9 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $products = $this->product->with('category')->with('brand')->latest('id')->paginate(5);
+        $products = $this->product->with('category')->with('brand')->where('quantity', '>', 0)
+            ->latest('id')
+            ->paginate(7);
         return response()->json($products);
     }
     public function create()

@@ -36,7 +36,7 @@ class StoreProductRequest extends FormRequest
         } else {
             return [
                 'name' => 'required|string|max:255', 
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description' => 'required|string',
                 'price' => 'required|numeric', 
                 'quantity' => 'required|numeric', 

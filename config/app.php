@@ -31,6 +31,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'image_path' => env('IMAGE_PATH', '/storage/images/'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

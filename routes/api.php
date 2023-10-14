@@ -2,18 +2,19 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
 Auth::routes();
 
 
 Route::middleware('auth:api')->group(function () {
-
     Route::prefix('roles')->controller(RoleController::class)->group(function () {
         Route::get('/', 'index')->name('index')->middleware('role:super-admin');
         Route::post('/', 'store')->name('store')->middleware('role:super-admin');
@@ -59,4 +60,23 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('/{product}', 'destroy')->name('destroy')->middleware('permission:delete-product');
         Route::get('/{product}/edit', 'edit')->name('edit')->middleware('permission:update-product');
     });
+});
+Route::get('/products-client', [ProductController::class, 'index']);
+Route::get('/product-client/{product}', [ProductController::class, 'show']);
+Route::get('/cart-client/{userid}', [CartController::class, 'index']);
+Route::post('/createorder', [CartController::class, 'createOrder']);
+Route::post('/addtocart', [CartController::class, 'store']);
+Route::put('/update-cart/{cart}', [CartController::class, 'update']);
+Route::delete('/delete-cart/{cart}', [CartController::class, 'destroy']);
+Route::delete('/delete-all-cart/{userid}', [CartController::class, 'destroyByUserId']);
+Route::get('/list-order/{userid}', [CartController::class, 'getOrdersByUserId']);
+Route::get('/list-comment/{productid}', [CommentController::class, 'index']);
+Route::post('/comment', [CommentController::class, 'store']);
+
+
+
+Route::group(['middleware' => ['web']], function () {
+    // Route xử lý URL http://127.0.0.1:8000/api/auth/google/redirect
+    Route::get('/auth/google/redirect', [GoogleController::class, 'googleLoginUrl']);
+    Route::get('/auth/google/callback', [GoogleController::class, 'loginCallback']);
 });
